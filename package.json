@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js ",
+    "starts": "node index.js ",
     "client": "npm run start --prefix client",
     "server": "nodemon index.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "engines": {
     "node": "^10"
