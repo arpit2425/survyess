@@ -1,22 +1,47 @@
 import React, { Component } from "react";
-import "materialize-css/dist/js/materialize";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 export class Header extends Component {
+  renderContent() {
+    switch (this.props.auth) {
+      case null:
+        return;
+      case false:
+        return (
+          <li>
+            <a href="/auth/google">Login with Google</a>
+          </li>
+        );
+      default:
+        return (
+          <li>
+            <a href="/api/logout">Logout</a>
+          </li>
+        );
+    }
+  }
   render() {
+    console.log(this.props);
     return (
       <nav>
         <div className="nav-wrapper">
-          <a href="#" className="brand-logo">
-            Logo
-          </a>
+          <Link
+            to={this.props.auth ? "/surveys" : "/"}
+            href="#"
+            className="brand-logo"
+          >
+            Surveyss
+          </Link>
           <ul id="nav-mobile" className="right ">
-            <li>
-              <a href="sass.html">Login with Google</a>
-            </li>
+            {this.renderContent()}
           </ul>
         </div>
       </nav>
     );
   }
 }
+function mapStateToProps({ auth }) {
+  return { auth };
+}
 
-export default Header;
+export default connect(mapStateToProps)(Header);
