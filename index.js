@@ -10,6 +10,7 @@ app.use(
 );
 const passport = require("passport");
 const mongoose = require("mongoose");
+app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -17,6 +18,7 @@ require("./models/User");
 require("./services/passport");
 
 require("./routes/authRoutes")(app);
+require("./routes/billingRoutes")(app);
 mongoose.connect(keys.database, {
   useNewUrlParser: true,
   useUnifiedTopology: true
