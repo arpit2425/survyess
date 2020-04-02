@@ -19,6 +19,8 @@ require("./services/passport");
 
 require("./routes/authRoutes")(app);
 require("./routes/billingRoutes")(app);
+require("./routes/surveyRoutes")(app);
+
 mongoose.connect(keys.database, {
   useNewUrlParser: true,
   useUnifiedTopology: true

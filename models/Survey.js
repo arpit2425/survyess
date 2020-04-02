@@ -7,7 +7,10 @@ const surveySchema = new Schema({
   body: String,
   recipients: [recipientSchema],
   yes: { type: Number, default: 0 },
-  no: { type: Number, default: 0 }
+  no: { type: Number, default: 0 },
+  _user: { type: Schema.Types.ObjectId, ref: "User" },
+  dateSend: Date,
+  lastResponded: Date
 });
 const survey = mongoose.model("surveys", surveySchema);
 module.exports = survey;
