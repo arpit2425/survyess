@@ -13,7 +13,7 @@ const mongoose = require("mongoose");
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
-
+require("./models/Survey");
 require("./models/User");
 require("./services/passport");
 
