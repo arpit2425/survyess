@@ -5,7 +5,10 @@ const Mailer = require("./../services/Mailer");
 const Survey = require("./../models/Survey");
 const templete = require("./../services/emailTempletes/surveyTemplete");
 module.exports = (app) => {
-  app.post("/api/surveys", requireLogin, requireCredits, (req, res) => {
+  app.get("/api/surveys/thanks", (req, res) => {
+    res.send("Thank You");
+  });
+  app.post("/api/surveys", requireLogin, requireCredits, async (req, res) => {
     const { title, subject, body, recipients } = req.body;
     const survey = new Survey({
       title,
@@ -18,5 +21,14 @@ module.exports = (app) => {
       dateSend: Date.now(),
     });
     const mailer = new Mailer(survey, templete(survey));
+    try {
+      await mailer.send();
+      await survey.save();
+      req.user.credits -= 1;
+      const user = req.user.save();
+      res.send(user);
+    } catch (err) {
+      res.status(422).send(err);
+    }
   });
 };
