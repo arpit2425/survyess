@@ -5,7 +5,7 @@ import Landing from "./Landing";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import Dashboard from "./Dashboard";
-const surveyNew = () => <h2>surveyNew</h2>;
+import surveyNew from "./surveys/SurveyNew";
 
 class App extends Component {
   componentDidMount() {
