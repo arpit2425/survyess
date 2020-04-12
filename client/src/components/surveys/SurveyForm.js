@@ -42,7 +42,15 @@ class SurveyForm extends Component {
     );
   }
 }
+function validate(values) {
+  const errors = {};
+  if (!values.title) {
+    errors.title = "Must provide a title";
+  }
 
+  return errors;
+}
 export default reduxForm({
+  validate,
   form: "surveyForm",
 })(SurveyForm);
