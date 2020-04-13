@@ -4,12 +4,8 @@ import SurveyField from "./SurveyField";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 import validateEmail from "./../../utils/validateEmail";
-const FIELDS = [
-  { label: "Survey Title", name: "title" },
-  { label: "Subject Line", name: "Subject" },
-  { label: "Email Body", name: "body" },
-  { label: "Recipient List", name: "emails" },
-];
+import FIELDS from "./formFields";
+
 class SurveyForm extends Component {
   renderFields() {
     return _.map(FIELDS, (field) => {
@@ -55,4 +51,5 @@ function validate(values) {
 export default reduxForm({
   validate,
   form: "surveyForm",
+  destroyOnUnmount: false,
 })(SurveyForm);
