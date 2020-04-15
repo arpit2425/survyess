@@ -25,7 +25,8 @@ module.exports = (app) => {
       await mailer.send();
       await survey.save();
       req.user.credits -= 1;
-      const user = req.user.save();
+      const user = await req.user.save();
+      console.log(user);
       res.send(user);
     } catch (err) {
       res.status(422).send(err);
