@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const _ = require("lodash");
+const path = require("path-parser");
+const { URL } = require("url");
 const requireLogin = require("../requireLogin");
 const requireCredits = require("../requireCredits");
 const Mailer = require("./../services/Mailer");
@@ -7,6 +10,18 @@ const templete = require("./../services/emailTempletes/surveyTemplete");
 module.exports = (app) => {
   app.get("/api/surveys/thanks", (req, res) => {
     res.send("Thank You");
+  });
+  app.get("/api/surveys/webhooks", (req, res) => {
+    const events = _.map(({ email, url }) => {
+      const pathname = new URL(url).pathname;
+      const p = new path("/api/surveys/:surveyId/:choice");
+      const match = p.test(pathname);
+      if (match) {
+        return { email, surveyId: match.surveyId, choice: match.choice };
+      }
+    });
+    const compactEvents = _.compact(events);
+    const uniqueEveny = _.uniqBy(compactEvents, "email", "surveyId");
   });
   app.post("/api/surveys", requireLogin, requireCredits, async (req, res) => {
     const { title, subject, body, recipients } = req.body;
