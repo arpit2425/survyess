@@ -18,8 +18,9 @@ module.exports = (app) => {
   app.get("/api/surveys/:surveyId/:choice", (req, res) => {
     res.send("Thank You");
   });
-  app.get("/api/surveys/webhooks", (req, res) => {
+  app.post("/api/surveys/webhooks", (req, res) => {
     const p = new path("/api/surveys/:surveyId/:choice");
+    console;
     const events = _.chain(req.body)
       .map(({ email, url }) => {
         const match = p.test(new URL(url).pathname);
