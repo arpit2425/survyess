@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const _ = require("lodash");
-const path = require("path-parser");
+const Path = require("path-parser");
 const { URL } = require("url");
 const requireLogin = require("../requireLogin");
 const requireCredits = require("../requireCredits");
@@ -19,7 +19,7 @@ module.exports = (app) => {
     res.send("Thank You");
   });
   app.post("/api/surveys/webhooks", (req, res) => {
-    const p = new path("/api/surveys/:surveyId/:choice");
+    const p = new Path("/api/surveys/:surveyId/:choice");
     console.log("hii from webhook");
     const events = _.chain(req.body)
       .map(({ email, url }) => {
