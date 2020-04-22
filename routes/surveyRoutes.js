@@ -20,7 +20,7 @@ module.exports = (app) => {
   });
   app.post("/api/surveys/webhooks", (req, res) => {
     const p = new path("/api/surveys/:surveyId/:choice");
-    console;
+    console.log("hii from webhook");
     const events = _.chain(req.body)
       .map(({ email, url }) => {
         const match = p.test(new URL(url).pathname);
