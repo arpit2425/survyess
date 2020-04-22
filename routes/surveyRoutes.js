@@ -12,6 +12,8 @@ module.exports = (app) => {
     const surveys = await Survey.find({ _user: req.user.id }).select({
       recipients: false,
     });
+    // console.log(surveys);
+    res.send(surveys);
   });
   app.get("/api/surveys/:surveyId/:choice", (req, res) => {
     res.send("Thank You");

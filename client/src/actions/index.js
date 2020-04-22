@@ -16,6 +16,6 @@ export const submitSurvey = (values, histroy) => async (dispatch) => {
 };
 
 export const fetchSurveys = () => async (dispatch) => {
-  const surveys = await axios.get("/api/surveys");
-  dispatch({ type: FETCH_SURVEYS, payload: surveys });
+  const res = await axios.get("/api/surveys");
+  dispatch({ type: FETCH_SURVEYS, payload: res.data });
 };
