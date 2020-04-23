@@ -15,9 +15,9 @@ export class Header extends Component {
         );
       default:
         return [
-          <Link to="/surveys/new" key="4">
+          <li href="/surveys" key="4">
             My Surveys
-          </Link>,
+          </li>,
           <li key="1">
             <Payments />
           </li>,
