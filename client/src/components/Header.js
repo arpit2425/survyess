@@ -15,14 +15,14 @@ export class Header extends Component {
         );
       default:
         return [
-          <li href="/surveys" key="4">
-            My Surveys
-          </li>,
           <li key="1">
             <Payments />
           </li>,
           <li key="3" style={{ margin: "0 10px" }}>
             Credits : {this.props.auth.credits}
+          </li>,
+          <li key="4">
+            <a href="/surveys">My Surveys</a>
           </li>,
           <li key="2">
             <a href="/api/logout">Logout</a>
