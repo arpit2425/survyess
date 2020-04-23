@@ -18,10 +18,10 @@ module.exports = (app) => {
   app.get("/api/surveys/:surveyId/:choice", (req, res) => {
     res.send("Thank You");
   });
-  app.post("/api/surveys/webhooks", async (req, res) => {
+  app.post("/api/surveys/webhooks", (req, res) => {
     const p = new Path("/api/surveys/:surveyId/:choice");
-    console.log("hii from webhook");
-    const events = _.chain(req.body)
+
+    _.chain(req.body)
       .map(({ email, url }) => {
         const match = p.test(new URL(url).pathname);
         if (match) {
@@ -30,12 +30,12 @@ module.exports = (app) => {
       })
       .compact()
       .uniqBy("email", "surveyId")
-      .each(async ({ surveyId, email, choice }) => {
-        await Survey.updateOne(
+      .each(({ surveyId, email, choice }) => {
+        Survey.updateOne(
           {
-            id: surveyId,
+            _id: surveyId,
             recipients: {
-              $elemMatch: { email, responded: false },
+              $elemMatch: { email: email, responded: false },
             },
           },
           {
@@ -46,8 +46,10 @@ module.exports = (app) => {
         ).exec();
       })
       .value();
+
     res.send({});
   });
+
   app.post("/api/surveys", requireLogin, requireCredits, async (req, res) => {
     const { title, subject, body, recipients } = req.body;
     const survey = new Survey({
