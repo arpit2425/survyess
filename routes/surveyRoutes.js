@@ -18,7 +18,7 @@ module.exports = (app) => {
   app.get("/api/surveys/:surveyId/:choice", (req, res) => {
     res.send("Thank You");
   });
-  app.post("/api/surveys/webhooks", async(req, res) => {
+  app.post("/api/surveys/webhooks", async (req, res) => {
     const p = new Path("/api/surveys/:surveyId/:choice");
     console.log("hii from webhook");
     const events = _.chain(req.body)
@@ -30,7 +30,7 @@ module.exports = (app) => {
       })
       .compact()
       .uniqBy("email", "surveyId")
-      .each(({ surveyId, email, choice }) => {
+      .each(async ({ surveyId, email, choice }) => {
         await Survey.updateOne(
           {
             id: surveyId,
